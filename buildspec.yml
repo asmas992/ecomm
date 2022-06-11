@@ -27,4 +27,4 @@ phases:
       - printf '[{"name":"ecomm","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
-	   Files: imagedefinations.json
+    Files: imagedefinations.json
