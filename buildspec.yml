@@ -5,7 +5,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws –-version
+      - aws –version
       - docker login -u asma992 -p Rumaisa26@
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 018295863409.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo
@@ -24,7 +24,7 @@ phases:
       - docker push $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest
       - docker push $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"ecom","imageUri":"%s"}]' $$REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"ecomm","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
-   Files: imagedefinations.json
+	   Files: imagedefinations.json
