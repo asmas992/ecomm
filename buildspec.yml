@@ -5,26 +5,27 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws -–version
-- docker login -u asma992 -p Rumaisa26@
+      - aws --version
+      - docker login -u asma992 -p Rumaisa26@
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 018295863409.dkr.ecr.us-east-1.amazonaws.com
-      - REPOSITORY_URI=018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo
+      - REPOSITORY_URI= 018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest .
-      - docker tag $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:$IMAGE_TAG
+      - docker build -t 018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest .
+      - docker tag 018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest 018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest
-      - docker push $018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:$IMAGE_TAG
+      - docker push 018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest
+      - docker push 018295863409.dkr.ecr.us-east-1.amazonaws.com/myrepo:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"ecomm","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-
+      
 artifacts:
-	   Files: imagedefinations.json
+      files: imagedefinitions.json
+      
